@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms'
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ResponseI } from 'src/app/modelos/response.interface';
+import { DataApiJuegoService } from 'src/app/servicios/data-api-juego.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -7,11 +10,21 @@ import { FormGroup, FormControl, Validators } from '@angular/forms'
 })
 export class LoginComponent {
   loginForm = new FormGroup({
-    usuario : new FormControl('',Validators.required),
-    contraseña : new FormControl('',Validators.required)
+    email : new FormControl('',Validators.required),
+    password : new FormControl('',Validators.required)
   })
 
-  login(){
-    console.log(this.loginForm.value);
+  constructor (private dataApiJuegoService:DataApiJuegoService){}
+
+  login(form:any){
+    this.dataApiJuegoService.Login(form).subscribe({
+      next: (s) =>{
+        let dataResponse:ResponseI = s;
+        console.log(dataResponse);
+      },
+      error: (err) =>{
+        debugger;
+      }
+    })
   }
 }
