@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './vista/login/login.component';
+import { DashboardComponent } from './vista/dashboard/dashboard.component';
 
 
 const routes: Routes = [
@@ -10,6 +11,10 @@ const routes: Routes = [
   {
     path: 'Login',
     component:LoginComponent
+  },
+  {
+    path: "Dashboard",
+    component: DashboardComponent
   }
 ];
 
@@ -18,3 +23,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+export const routingComponents = [LoginComponent,DashboardComponent];
