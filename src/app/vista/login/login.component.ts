@@ -21,9 +21,21 @@ export class LoginComponent {
 
   constructor (private dataApiJuegoService:DataApiJuegoService, private router:Router){}
 
+  ngOnInit(){
+    this.checkLocalStorage();
+  }
+
+  checkLocalStorage(){
+    if (localStorage.getItem("token")) {
+      this.router.navigate(['Dashboard']);
+    }
+  }
+
   login(form:any){
     this.dataApiJuegoService.Login(form).subscribe({
       next: (s) =>{
+        let dataResponse:ResponseI = s;
+        localStorage.setItem("token",dataResponse.accesToken);
         this.router.navigate(['Dashboard']);
       },
       error: (err) =>{
@@ -33,4 +45,6 @@ export class LoginComponent {
       }
     })
   }
+
+
 }
